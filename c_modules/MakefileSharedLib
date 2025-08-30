@@ -1,0 +1,18 @@
+CC = gcc
+CFLAGS = -fPIC -c
+LDFLAGS = -shared
+TARGET = my_program.so
+SOURCES = my_main.c read_file.c pruning.c helpers/cJSON.c path_generation.c
+OBJECTS = $(SOURCES:.c=.o)
+
+all: $(TARGET)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(LDFLAGS) -o $@ $(OBJECTS)
+
+clean:
+	rm -f $(OBJECTS) $(TARGET)
+
